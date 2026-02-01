@@ -6,19 +6,6 @@ export class CactiStackStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const myFunctionNode = new lambda.Function(this, "HelloWorldFunctionNode", {
-      runtime: lambda.Runtime.NODEJS_20_X, // Provide any supported Node.js runtime
-      handler: "index.handler",
-      code: lambda.Code.fromInline(`
-        exports.handler = async function(event) {
-          return {
-            statusCode: 200,
-            body: JSON.stringify('Hello World! this has been updated and again'),
-          };
-        };
-      `),
-    });
-
     const myFunctionPython = new lambda.Function(this, "HelloWorldFunctionPython", {
       runtime: lambda.Runtime.PYTHON_3_12, // or PYTHON_3_11, PYTHON_3_10
       handler: "index.handler",
@@ -33,17 +20,10 @@ def handler(event, context):
       `),
         });
 
-    const myFunctionNodeUrl = myFunctionNode.addFunctionUrl({
-      authType: lambda.FunctionUrlAuthType.NONE,
-    });
     const myFunctionPythonUrl = myFunctionPython.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
-
-    new cdk.CfnOutput(this, "myFunctionNodeUrlOutput", {
-      value: myFunctionNodeUrl.url,
-    })
-
+    
     new cdk.CfnOutput(this, "myFunctionPythonUrlOutput", {
       value: myFunctionPythonUrl.url,
     })

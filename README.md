@@ -10,5 +10,12 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 * `npm run watch`   watch for changes and compile
 * `npm run test`    perform the jest unit tests
 * `npx cdk deploy`  deploy this stack to your default AWS account/region
+* `npx cdk destroy`
 * `npx cdk diff`    compare deployed stack with current state
 * `npx cdk synth`   emits the synthesized CloudFormation template
+
+`npx cdk ls` list deployable stacks
+
+`aws ssm start-session --target i-0df9ac729827f037d` get into the instance
+
+`npx cdk deploy --all`
